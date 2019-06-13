@@ -12,7 +12,8 @@ namespace PinkCloud {
         private engine: Babylon.Engine
         private scene: Babylon.Scene
         private camera: Babylon.ArcRotateCamera
-        private light: Babylon.Light
+        private light: Babylon.DirectionalLight
+        private shadowGenerator: Babylon.ShadowGenerator
 
         constructor(canvas: HTMLCanvasElement) {
             this.canvas = canvas
@@ -24,13 +25,23 @@ namespace PinkCloud {
             this.camera.attachControl(this.canvas, false)
             this.camera.inertia = 0.8
 
-            this.light = new Babylon.HemisphericLight('light1', new Babylon.Vector3(0.5, 1, 0.5), this.scene)
+            this.light = new Babylon.DirectionalLight('light1', new Babylon.Vector3(3, -2, 1.25), this.scene)
+            this.light.intensity = 1.2
+            this.light.position = new Vector3(-6, 5, 0)
+
+            this.shadowGenerator = new Babylon.ShadowGenerator(2048, this.light)
+            this.shadowGenerator.useContactHardeningShadow = true
+            // this.shadowGenerator.setDarkness(0.5)
+
+            let ambientLight = new Babylon.HemisphericLight('ambientLight', new Babylon.Vector3(-3, 2, -1.25), this.scene)
+            ambientLight.intensity = 0.2
+
+            let ground = Babylon.MeshBuilder.CreateGround('ground', { width: 6, height: 6, subdivisions: 2 }, this.scene)
+            ground.receiveShadows = true
 
             let sphere = Babylon.MeshBuilder.CreateSphere('sphere1', { segments: 16, diameter: 2 }, this.scene)
             sphere.position.x = -5
             sphere.position.y = 1
-
-            let ground = Babylon.MeshBuilder.CreateGround('ground', { width: 6, height: 6, subdivisions: 2 }, this.scene)
 
             let cube = Babylon.MeshBuilder.CreateBox('box1', { size: 2 }, this.scene)
             cube.position.x = 5
@@ -48,6 +59,7 @@ namespace PinkCloud {
                     mesh.translate(new Vector3(0, 1, 0), 0.05)
                     mesh.rotate(new Vector3(0, 0, 1), Math.PI)
                     // mesh.translate(new Vector3(1, 0, 0), -0.05)
+                    this.shadowGenerator.addShadowCaster(mesh)
                 }
 
                 container.addAllToScene()
