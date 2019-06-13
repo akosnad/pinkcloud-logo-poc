@@ -1,3 +1,3 @@
-# 3dtinker
+# pinkcloud-logo-poc
 
-Trying out the HTML5 canvas 3D capabilities
+Trying Babylon.js

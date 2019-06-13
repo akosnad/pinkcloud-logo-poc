@@ -5,9 +5,9 @@ import * as BabylonMaterials from 'babylonjs-materials'
 import * as BabylonTextures from 'babylonjs-procedural-textures'
 
 
-namespace ThreeDeeTinker {
+namespace PinkCloud {
 
-    class Game {
+    class LogoPoC {
         private canvas: HTMLCanvasElement
         private engine: Babylon.Engine
         private scene: Babylon.Scene
@@ -65,8 +65,8 @@ namespace ThreeDeeTinker {
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-        let game = new Game(<HTMLCanvasElement>document.getElementById("babylon-canvas"))
-        game.render()
+        let poc = new LogoPoC(<HTMLCanvasElement>document.getElementById("babylon-canvas"))
+        poc.render()
     })
 
 }
