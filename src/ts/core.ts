@@ -39,7 +39,7 @@ namespace PinkCloud {
             BabylonLoaders.OBJFileLoader.INVERT_Y = false
             // BabylonLoaders.OBJFileLoader.UV_SCALING = new Babylon.Vector2(100, 100)
             // BabylonLoaders.OBJFileLoader.IMPORT_VERTEX_COLORS = true
-            Babylon.SceneLoader.LoadAssetContainer('/', "pinkcloud_3d.obj", this.scene, (container) => {
+            Babylon.SceneLoader.LoadAssetContainer('./', "pinkcloud_3d.obj", this.scene, (container) => {
                 let meshes = container.meshes
                 // let materials = container.materials
 
